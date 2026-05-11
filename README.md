@@ -2,7 +2,7 @@
 
 This system is a digital platform for NUST that helps manage all postgraduate activities in one place. It will make it easier for students, supervisors, and faculty staff to handle proposals, progress reports, and thesis submissions without using paper or emails.
 
-The system will allow students to upload their progress reports, track how far they are with their studies, and see feedback from their supervisors and the Higher Degrees Committee.
+The system will allow students to upload their progress reports, track how far they are with their studies, and see feedback from their supervisors and the Higher Degrees Committee (HDC).
 
 Supervisors will use the system to review student work, give comments, approve progress reports, and submit proposals or final theses to the Head of Department. They will also be able to monitor their students’ progress.
 
