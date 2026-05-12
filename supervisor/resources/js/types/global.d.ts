@@ -1,11 +1,17 @@
-/// <reference types="vite/client" />
+import { PageProps as InertiaPageProps } from '@inertiajs/core';
+import { AxiosInstance } from 'axios';
+import { route as ziggyRoute } from 'ziggy-js';
+import { PageProps as AppPageProps } from './';
 
-// Global type declarations for the application
 declare global {
-  // Extend Window interface to include axios
-  interface Window {
-    axios: typeof import('axios').default;
-  }
+    interface Window {
+        axios: AxiosInstance;
+    }
+
+    /* eslint-disable no-var */
+    var route: typeof ziggyRoute;
 }
 
-export {};
+declare module '@inertiajs/core' {
+    interface PageProps extends InertiaPageProps, AppPageProps {}
+}

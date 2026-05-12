@@ -1,20 +1,25 @@
 import { Transition } from '@headlessui/react';
-import { Link } from '@inertiajs/react';
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { InertiaLinkProps, Link } from '@inertiajs/react';
+import {
+    createContext,
+    Dispatch,
+    PropsWithChildren,
+    SetStateAction,
+    useContext,
+    useState,
+} from 'react';
 
-interface DropdownContextType {
+const DropDownContext = createContext<{
     open: boolean;
-    setOpen: (open: boolean) => void;
+    setOpen: Dispatch<SetStateAction<boolean>>;
     toggleOpen: () => void;
-}
+}>({
+    open: false,
+    setOpen: () => {},
+    toggleOpen: () => {},
+});
 
-const DropDownContext = createContext<DropdownContextType | undefined>(undefined);
-
-interface DropdownProps {
-    children: ReactNode;
-}
-
-const Dropdown = ({ children }: DropdownProps) => {
+const Dropdown = ({ children }: PropsWithChildren) => {
     const [open, setOpen] = useState(false);
 
     const toggleOpen = () => {
@@ -28,10 +33,8 @@ const Dropdown = ({ children }: DropdownProps) => {
     );
 };
 
-const Trigger = ({ children }: { children: ReactNode }) => {
-    const context = useContext(DropDownContext);
-    if (!context) throw new Error('Trigger must be used within Dropdown');
-    const { open, setOpen, toggleOpen } = context;
+const Trigger = ({ children }: PropsWithChildren) => {
+    const { open, setOpen, toggleOpen } = useContext(DropDownContext);
 
     return (
         <>
@@ -52,15 +55,12 @@ const Content = ({
     width = '48',
     contentClasses = 'py-1 bg-white',
     children,
-}: {
+}: PropsWithChildren<{
     align?: 'left' | 'right';
-    width?: string;
+    width?: '48';
     contentClasses?: string;
-    children: ReactNode;
-}) => {
-    const context = useContext(DropDownContext);
-    if (!context) throw new Error('Content must be used within Dropdown');
-    const { open, setOpen } = context;
+}>) => {
+    const { open, setOpen } = useContext(DropDownContext);
 
     let alignmentClasses = 'origin-top';
 
@@ -105,7 +105,11 @@ const Content = ({
     );
 };
 
-const DropdownLink = ({ className = '', children, ...props }: { className?: string; children: ReactNode } & React.ComponentProps<typeof Link>) => {
+const DropdownLink = ({
+    className = '',
+    children,
+    ...props
+}: InertiaLinkProps) => {
     return (
         <Link
             {...props}

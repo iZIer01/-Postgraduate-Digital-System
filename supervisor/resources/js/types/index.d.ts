@@ -1,10 +1,14 @@
-// Central export file for all type definitions
-// This file can be used to export types that other parts of the application might need
+export interface User {
+    id: number;
+    name: string;
+    email: string;
+    email_verified_at?: string;
+}
 
-export * from './global';
-export * from './vite-env';
-
-// You can add more exports here as your application grows
-// For example:
-// export type { User } from './models';
-// export type { ApiResponse } from './api';
+export type PageProps<
+    T extends Record<string, unknown> = Record<string, unknown>,
+> = T & {
+    auth: {
+        user: User;
+    };
+};

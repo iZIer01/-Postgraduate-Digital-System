@@ -1,13 +1,11 @@
-interface DangerButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    className?: string;
-}
+import { ButtonHTMLAttributes } from 'react';
 
 export default function DangerButton({
     className = '',
     disabled,
     children,
     ...props
-}: DangerButtonProps) {
+}: ButtonHTMLAttributes<HTMLButtonElement>) {
     return (
         <button
             {...props}

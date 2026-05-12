@@ -93,6 +93,7 @@ Installation
 
 8. Run database migrations:
    php artisan migrate
+   php artisan db:seed
 
 Running the application
 -----------------------
