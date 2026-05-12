@@ -1,0 +1,100 @@
+Project Requirements
+====================
+
+Core stack
+----------
+- PHP: ^8.2
+- Laravel Framework: ^12.0
+- Node.js: 18.x or later recommended
+- npm: 10.x or later (bundled with Node)
+- Composer: 2.x
+- Database: MySQL / MariaDB (or other supported Laravel database)
+
+Key packages used
+-----------------
+- laravel/framework: ^12.0
+- inertiajs/inertia-laravel: ^2.0
+- laravel/sanctum: ^4.0
+- tightenco/ziggy: ^2.0
+- laravel/breeze: ^2.4 (development)
+- laravel/pint: ^1.24 (development)
+- phpunit/phpunit: ^11.5.50 (testing)
+- react: ^18.2.0
+- react-dom: ^18.2.0
+- vite: ^7.0.7
+- tailwindcss: ^3.2.1
+- @vitejs/plugin-react: ^4.2.0
+- @tailwindcss/vite: ^4.0.0
+- @tailwindcss/forms: ^0.5.3
+- axios: ^1.11.0
+
+Recommended PHP extensions
+--------------------------
+- ext-curl
+- ext-dom
+- ext-fileinfo
+- ext-json
+- ext-mbstring
+- ext-openssl
+- ext-pdo
+- ext-pdo_mysql
+- ext-tokenizer
+- ext-xml
+- ext-ctype
+- ext-bcmath
+
+Installation
+------------
+1. Install system dependencies:
+   - PHP 8.2+
+   - Composer 2.x
+   - Node.js 18.x+ and npm
+   - MySQL / MariaDB or another supported database server
+
+2. Navigate to the project root:
+   cd supervisor
+
+3. Install PHP dependencies:
+   composer install
+
+4. Install JavaScript dependencies:
+   npm install
+
+5. Copy the environment example file:
+   copy .env.example .env
+
+6. Generate the application key:
+   php artisan key:generate
+
+7. Configure database connection in `.env`:
+   - DB_CONNECTION=mysql
+   - DB_HOST=127.0.0.1
+   - DB_PORT=3306
+   - DB_DATABASE=supervisor
+   - DB_USERNAME=your_db_user
+   - DB_PASSWORD=your_db_password
+
+8. Run database migrations:
+   php artisan migrate
+
+Running the application
+-----------------------
+- Start Vite and the Laravel development server:
+  npm run dev
+
+- Or manually start the Laravel server:
+  php artisan serve
+
+- Open the application in a browser at:
+  http://127.0.0.1:8000
+
+Additional useful commands
+--------------------------
+- Build production assets:
+  npm run build
+
+- Run tests:
+  composer test
+
+- Run the project setup script (installs dependencies, creates `.env`, generates key, migrates, and builds assets):
+  composer run setup
