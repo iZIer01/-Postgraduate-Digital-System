@@ -1,4 +1,6 @@
-export default function ApplicationLogo(props) {
+interface ApplicationLogoProps extends React.SVGProps<SVGSVGElement> {}
+
+export default function ApplicationLogo(props: ApplicationLogoProps) {
     return (
         <svg
             {...props}

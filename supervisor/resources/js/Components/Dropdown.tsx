@@ -1,10 +1,20 @@
 import { Transition } from '@headlessui/react';
 import { Link } from '@inertiajs/react';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
-const DropDownContext = createContext();
+interface DropdownContextType {
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    toggleOpen: () => void;
+}
 
-const Dropdown = ({ children }) => {
+const DropDownContext = createContext<DropdownContextType | undefined>(undefined);
+
+interface DropdownProps {
+    children: ReactNode;
+}
+
+const Dropdown = ({ children }: DropdownProps) => {
     const [open, setOpen] = useState(false);
 
     const toggleOpen = () => {
@@ -18,8 +28,10 @@ const Dropdown = ({ children }) => {
     );
 };
 
-const Trigger = ({ children }) => {
-    const { open, setOpen, toggleOpen } = useContext(DropDownContext);
+const Trigger = ({ children }: { children: ReactNode }) => {
+    const context = useContext(DropDownContext);
+    if (!context) throw new Error('Trigger must be used within Dropdown');
+    const { open, setOpen, toggleOpen } = context;
 
     return (
         <>
@@ -40,8 +52,15 @@ const Content = ({
     width = '48',
     contentClasses = 'py-1 bg-white',
     children,
+}: {
+    align?: 'left' | 'right';
+    width?: string;
+    contentClasses?: string;
+    children: ReactNode;
 }) => {
-    const { open, setOpen } = useContext(DropDownContext);
+    const context = useContext(DropDownContext);
+    if (!context) throw new Error('Content must be used within Dropdown');
+    const { open, setOpen } = context;
 
     let alignmentClasses = 'origin-top';
 
@@ -86,7 +105,7 @@ const Content = ({
     );
 };
 
-const DropdownLink = ({ className = '', children, ...props }) => {
+const DropdownLink = ({ className = '', children, ...props }: { className?: string; children: ReactNode } & React.ComponentProps<typeof Link>) => {
     return (
         <Link
             {...props}
