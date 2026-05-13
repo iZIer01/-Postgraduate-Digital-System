@@ -13,7 +13,22 @@
         <!-- Scripts -->
         @routes
         @viteReactRefresh
-        @vite(['resources/js/app.tsx', "resources/js/Pages/{$page['component']}.tsx"])
+        @php
+            $component = $page['component'] ?? null;
+            $pageScript = null;
+
+            if ($component) {
+                $jsxPath = resource_path("js/Pages/{$component}.jsx");
+                $tsxPath = resource_path("js/Pages/{$component}.tsx");
+
+                if (file_exists($jsxPath)) {
+                    $pageScript = "resources/js/Pages/{$component}.jsx";
+                } elseif (file_exists($tsxPath)) {
+                    $pageScript = "resources/js/Pages/{$component}.tsx";
+                }
+            }
+        @endphp
+        @vite(array_filter(['resources/js/app.tsx', $pageScript]))
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
